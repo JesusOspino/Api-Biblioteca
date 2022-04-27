@@ -7,6 +7,9 @@ app.use(express.json());
 
 app.use(require('./routes/categotias.routes'));
 app.use(require('./routes/editoriales.routes'));
+app.use(require('./routes/libros.routes'));
+app.use(require('./routes/prestamos.routes'));
+app.use(require('./routes/pagos.routes'));
 
 // Le asignamos el puerto al servidor
 app.listen(8000, () => {
