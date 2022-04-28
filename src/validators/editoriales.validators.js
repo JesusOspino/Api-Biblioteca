@@ -1,6 +1,6 @@
 const { check, validationResult } = require('express-validator');
 
-const validateCategorias = [
+const validateEditoriales = [
 	check('nombre')
 		.exists()
 		.not()
@@ -17,4 +17,4 @@ const validateCategorias = [
 	},
 ];
 
-module.exports = { validateCategorias };
+module.exports = { validateEditoriales };
