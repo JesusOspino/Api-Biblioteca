@@ -1,8 +1,8 @@
 const conexion = require('../config/database');
 
-exports.getEditoriales = (req, res) => {
+exports.getDetalles = (req, res) => {
 	try {
-		conexion.query('SELECT * FROM editoriales', (err, rows, fields) => {
+		conexion.query('SELECT * FROM detalles', (err, rows, fields) => {
 			if (!err) {
 				res.json(rows);
 			} else {
@@ -15,13 +15,13 @@ exports.getEditoriales = (req, res) => {
 	}
 };
 
-exports.getEditorial = (req, res) => {
+exports.getDetalle = (req, res) => {
 	try {
-		conexion.query(`SELECT * FROM editoriales WHERE id = ${req.params.id}`, (err, rows, fields) => {
+		conexion.query(`SELECT * FROM detalles WHERE id = ${req.params.id}`, (err, rows, fields) => {
 			if (!err) {
 				res.json(rows[0]);
 			} else {
-				res.json({ status: 'No existe el editorial' });
+				res.json({ status: 'No existe el detalle' });
 			}
 		});
 	} catch (error) {
@@ -30,16 +30,18 @@ exports.getEditorial = (req, res) => {
 	}
 };
 
-exports.setEditoriales = (req, res) => {
+exports.setDetalles = (req, res) => {
 	try {
-		const { nombre } = req.body;
-		let query = `INSERT INTO editoriales SET?`;
+		const { libros_id, prestamos_id, precio } = req.body;
+		let query = `INSERT INTO detalles SET?`;
 
-		const editorialObj = {
-			nombre,
+		const detallesObj = {
+			libros_id,
+			prestamos_id,
+			precio,
 		};
 
-		conexion.query(query, editorialObj, (err, rows, fields) => {
+		conexion.query(query, detallesObj, (err, rows, fields) => {
 			if (!err) {
 				res.json({ status: 'Guardado con exito' });
 			} else {
@@ -52,12 +54,13 @@ exports.setEditoriales = (req, res) => {
 	}
 };
 
-exports.updateEditoriales = (req, res) => {
+exports.updateDetalles = (req, res) => {
 	try {
 		const { id } = req.params;
-		const { nombre, modified } = req.body;
-		let query = `UPDATE editoriales SET nombre = '${nombre}', modified = '${modified}'
-							WHERE id = ${id}`;
+		const { libros_id, prestamos_id, precio, modified } = req.body;
+		let query = `UPDATE detalles SET libros_id = '${libros_id}', prestamos_id = '${prestamos_id}',
+                             precio = '${precio}', modified = '${modified}'
+						WHERE id = ${id}`;
 
 		conexion.query(query, (err, rows, fields) => {
 			if (!err) {
@@ -72,10 +75,10 @@ exports.updateEditoriales = (req, res) => {
 	}
 };
 
-exports.deleteEditoriales = (req, res) => {
+exports.deleteDetalles = (req, res) => {
 	try {
 		const { id } = req.params;
-		let query = `DELETE FROM editoriales WHERE id = ${id}`;
+		let query = `DELETE FROM detalles WHERE id = ${id}`;
 
 		conexion.query(query, (err, rows, fields) => {
 			if (!err) {

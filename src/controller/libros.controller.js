@@ -32,10 +32,10 @@ exports.getLibro = (req, res) => {
 
 exports.setLibros = (req, res) => {
 	try {
-		const { titulo, descripcion, precio, ejemplares, autor, editoriales_id, categorias_id, created } = req.body;
+		const { titulo, descripcion, precio, ejemplares, autor, editoriales_id, categorias_id } = req.body;
 		let query = `INSERT INTO libros SET?`;
 
-		const editorialObj = {
+		const librosObj = {
 			titulo,
 			descripcion,
 			precio,
@@ -43,10 +43,9 @@ exports.setLibros = (req, res) => {
 			autor,
 			editoriales_id,
 			categorias_id,
-			created,
 		};
 
-		conexion.query(query, editorialObj, (err, rows, fields) => {
+		conexion.query(query, librosObj, (err, rows, fields) => {
 			if (!err) {
 				res.json({ status: 'Guardado con exito' });
 			} else {

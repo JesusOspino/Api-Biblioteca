@@ -10,6 +10,9 @@ app.use(require('./routes/editoriales.routes'));
 app.use(require('./routes/libros.routes'));
 app.use(require('./routes/prestamos.routes'));
 app.use(require('./routes/pagos.routes'));
+app.use(require('./routes/multas.routes'));
+app.use(require('./routes/usuarios.routes'));
+app.use(require('./routes/detalles.routes'));
 
 // Le asignamos el puerto al servidor
 app.listen(8000, () => {

@@ -1,8 +1,8 @@
 const conexion = require('../config/database');
 
-exports.getEditoriales = (req, res) => {
+exports.getMultas = (req, res) => {
 	try {
-		conexion.query('SELECT * FROM editoriales', (err, rows, fields) => {
+		conexion.query('SELECT * FROM multas', (err, rows, fields) => {
 			if (!err) {
 				res.json(rows);
 			} else {
@@ -15,13 +15,13 @@ exports.getEditoriales = (req, res) => {
 	}
 };
 
-exports.getEditorial = (req, res) => {
+exports.getMulta = (req, res) => {
 	try {
-		conexion.query(`SELECT * FROM editoriales WHERE id = ${req.params.id}`, (err, rows, fields) => {
+		conexion.query(`SELECT * FROM multas WHERE id = ${req.params.id}`, (err, rows, fields) => {
 			if (!err) {
 				res.json(rows[0]);
 			} else {
-				res.json({ status: 'No existe el editorial' });
+				res.json({ status: 'No existe la multa' });
 			}
 		});
 	} catch (error) {
@@ -30,16 +30,19 @@ exports.getEditorial = (req, res) => {
 	}
 };
 
-exports.setEditoriales = (req, res) => {
+exports.setMultas = (req, res) => {
 	try {
-		const { nombre } = req.body;
-		let query = `INSERT INTO editoriales SET?`;
+		const { fecha, observacion, valor, usuarios_id } = req.body;
+		let query = `INSERT INTO multas SET?`;
 
-		const editorialObj = {
-			nombre,
+		const multasObj = {
+			fecha,
+			observacion,
+			valor,
+			usuarios_id,
 		};
 
-		conexion.query(query, editorialObj, (err, rows, fields) => {
+		conexion.query(query, multasObj, (err, rows, fields) => {
 			if (!err) {
 				res.json({ status: 'Guardado con exito' });
 			} else {
@@ -52,18 +55,20 @@ exports.setEditoriales = (req, res) => {
 	}
 };
 
-exports.updateEditoriales = (req, res) => {
+exports.updateMultas = (req, res) => {
 	try {
 		const { id } = req.params;
-		const { nombre, modified } = req.body;
-		let query = `UPDATE editoriales SET nombre = '${nombre}', modified = '${modified}'
-							WHERE id = ${id}`;
+		const { fecha, observacion, valor, usuarios_id, modified } = req.body;
+		let query = `UPDATE multas SET fecha = '${fecha}', observacion = '${observacion}', valor = '${valor}',
+                            usuarios_id = '${usuarios_id}', modified = '${modified}'
+						WHERE id = ${id}`;
 
 		conexion.query(query, (err, rows, fields) => {
 			if (!err) {
 				res.json({ status: 'Actualizado con exito' });
 			} else {
 				res.json({ status: 'Error al Actualizar' });
+				console.log(err);
 			}
 		});
 	} catch (error) {
@@ -72,10 +77,10 @@ exports.updateEditoriales = (req, res) => {
 	}
 };
 
-exports.deleteEditoriales = (req, res) => {
+exports.deleteMultas = (req, res) => {
 	try {
 		const { id } = req.params;
-		let query = `DELETE FROM editoriales WHERE id = ${id}`;
+		let query = `DELETE FROM multas WHERE id = ${id}`;
 
 		conexion.query(query, (err, rows, fields) => {
 			if (!err) {

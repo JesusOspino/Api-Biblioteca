@@ -32,14 +32,13 @@ exports.getPrestamo = (req, res) => {
 
 exports.setPrestamos = (req, res) => {
 	try {
-		const { fecha, devolucion, entrega, created, usuarios_id } = req.body;
+		const { fecha, devolucion, entrega, usuarios_id } = req.body;
 		let query = `INSERT INTO prestamos SET?`;
 
 		const prestamoObj = {
 			fecha,
 			devolucion,
 			entrega,
-			created,
 			usuarios_id,
 		};
 

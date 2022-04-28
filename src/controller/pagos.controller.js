@@ -32,7 +32,7 @@ exports.getPago = (req, res) => {
 
 exports.setPagos = (req, res) => {
 	try {
-		const { fecha, valor, concepto, usuarios_id, created } = req.body;
+		const { fecha, valor, concepto, usuarios_id } = req.body;
 		let query = `INSERT INTO pagos SET?`;
 
 		const pagosObj = {
@@ -40,7 +40,6 @@ exports.setPagos = (req, res) => {
 			valor,
 			concepto,
 			usuarios_id,
-			created,
 		};
 
 		conexion.query(query, pagosObj, (err, rows, fields) => {

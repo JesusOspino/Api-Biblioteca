@@ -32,15 +32,15 @@ exports.getCategoria = (req, res) => {
 
 exports.setCategorias = (req, res) => {
 	try {
-		const { nombre, created } = req.body;
+		const { nombre } = req.body;
+
 		let query = `INSERT INTO categorias SET?`;
 
-		const categoriaObj = {
+		const categoriasObj = {
 			nombre,
-			created,
 		};
 
-		conexion.query(query, categoriaObj, (err, rows, fields) => {
+		conexion.query(query, categoriasObj, (err, rows, fields) => {
 			if (!err) {
 				res.json({ status: 'Guardado con exito' });
 			} else {
